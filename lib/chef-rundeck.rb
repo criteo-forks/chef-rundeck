@@ -174,6 +174,7 @@ def build_node (node, username, hostname, custom_attributes)
       os_family = node['kernel_os'] =~ /winnt|windows/i ? 'windows' : 'unix'
       nodeexec = node['kernel_os'] =~ /winnt|windows/i ? "node-executor=\"overthere-winrm\"" : ''
       filecopier = node['kernel_os'] =~ /winnt|windows/i ? "file-copier=\"overthere-winrm\"" : ''
+      node_username = username ? "username=\"#{xml_escape(username)}\"" : ''
       data << <<-EOH
 <node name="#{xml_escape(node['fqdn'])}" #{nodeexec} #{filecopier} 
       type="Node" 
@@ -186,7 +187,7 @@ def build_node (node, username, hostname, custom_attributes)
       recipes="#{xml_escape(node['recipes'].join(','))}"
       tags="#{xml_escape([ node['roles'], node['recipes'], node['chef_environment'], node['tags']].flatten.join(","))}"
       environment="#{xml_escape(node['chef_environment'])}"
-      username="#{xml_escape(username)}"
+      #{node_username}
       hostname="#{xml_escape(node['hostname'])}"
       editUrl="#{xml_escape(ChefRundeck.web_ui_url)}/nodes/#{xml_escape(node['name'])}/edit" #{custom_attributes.nil? ? '/': ''}>
 EOH
