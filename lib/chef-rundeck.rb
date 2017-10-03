@@ -173,8 +173,9 @@ def build_node (node, username, hostname, custom_attributes)
       data = ''
       os_family = node['kernel_os'] =~ /winnt|windows/i ? 'winnt' : 'unix'
       nodeexec = node['kernel_os'] =~ /winnt|windows/i ? "node-executor=\"overthere-winrm\"" : ''
+      filecopier = node['kernel_os'] =~ /winnt|windows/i ? "file-copier=\"overthere-winrm\"" : ''
       data << <<-EOH
-<node name="#{xml_escape(node['fqdn'])}" #{nodeexec} 
+<node name="#{xml_escape(node['fqdn'])}" #{nodeexec} #{filecopier} 
       type="Node" 
       description="#{xml_escape(node['name'])}"
       osArch="#{xml_escape(node['kernel_machine'])}"
