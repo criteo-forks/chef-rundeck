@@ -171,7 +171,7 @@ def build_node (node, username, hostname, custom_attributes)
       # Certain features in Rundeck require the osFamily value to be set to 'unix' to work appropriately. - SRK
       #++
       data = ''
-      os_family = node['kernel_os'] =~ /winnt|windows/i ? 'winnt' : 'unix'
+      os_family = node['kernel_os'] =~ /winnt|windows/i ? 'windows' : 'unix'
       nodeexec = node['kernel_os'] =~ /winnt|windows/i ? "node-executor=\"overthere-winrm\"" : ''
       data << <<-EOH
 <node name="#{xml_escape(node['fqdn'])}" #{nodeexec} 
