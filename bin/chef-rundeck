@@ -43,7 +43,7 @@ class ChefRundeckCLI
    option :username,
      :short => "-u USERNAME",
      :long => "--username USERNAME",
-     :default => ENV['USER'],
+     :default => nil,
      :description => "The Username for Rundeck to SSH as"
 
    option :web_ui_url,
